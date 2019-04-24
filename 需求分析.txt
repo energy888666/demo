@@ -1,0 +1,59 @@
+题目:Web聊天室 （总分值：70分）
+要求:
+    使用FlaskWeb框架完成开发工作
+    数据库类型不限
+需求:
+    1.注册登录功能 要求 存储头像     （分值：10分）
+		1.注册 - 数据库中写入用户基本信息 - 存储头像
+		2.头像 - request.files - save(filename) - avatar_name 数据库
+		3.登录 - 校验数据
+		
+    2.聊天室在线人数及明细 			（分值：10分）
+		user_socket_dict = { user1:连接 , user2:连接 , user3:连接 }
+		在线人数 ：len(user_socket_dict) 
+		在线用户明细 ：list(user_socket_dict.keys())
+		实时在线人数：在 用户登录 和 退出 时发送消息给每个在线用户
+		离线剔除 ：try: message = user_socket.receive()
+		
+    3.选择联系人实现单点对话(私聊)  		（分值：10分）
+		用户明细 Key username 实现单聊
+		user_socket_dict.get(Key).send()
+		insert_one({"user_list":[user1,user2],"chat_list":[{
+			"from_user":"123",
+			"chat_type":"image" / "audio"
+			"message":"123.jpg" / "123.mp3"
+			]})
+		解释：
+			form_user to_user 两个用户的地址
+			储存记录的位置 ，设计聊天记录储存方式
+			Web页面 + 获取to_user位置 + websocket
+			
+		
+    4.公共聊天室(群聊)  			（分值：10分）
+		user_socket_dict.values().send()
+		解释：
+			可以通过公共聊天转到单点对话
+			储存记录的位置 ，设计聊天记录储存方式
+		
+    5.可以发送 语音消息 和 图片消息 		（分值：10分）
+		web录音代码，上传 - send_file("语音消息")/<audio src="">
+		图片消息: 上传 - send_file / <img src="">
+	
+		
+    6.实现聊天记录存储 和 查询 			（分值：10分）
+		"chat_list":{
+			"from_user":"123",
+			"chat_type":"image" / "audio"
+			"message":"123.jpg" / "123.mp3"
+		}
+		历史消息查询
+		
+    7.简述的项目功能及使用方式(项目文档)		（分值：10分）
+		代码是不是你自己写的
+		写完之后有没有成就感
+	
+任务：周五放学之前，强制完成以上工作
+
+
+
+

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册页面</title>
+</head>
+<body>
+<form method="post" novalidate style="padding:0  50px" enctype="multipart/form-data">
+    {% for item in form %}
+    <p>{{item.label}}: {{item}} {{item.errors[0] }}</p>
+    {% endfor %}
+    <input type="file" value="请上传头像" name="file">
+    <input type="submit" value="提交">
+</form>
+
+
+</form>
+
+</body>
+</html>

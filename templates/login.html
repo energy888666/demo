@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登陆页面</title>
+    <style>
+    .form-control{
+        background-color:red;
+    }
+</style>
+</head>
+
+<body>
+<form action="" method="post" novalidate>
+    <p>{{ form.name.label }} {{ form.name }} {{ form.name.errors.0 }}</p>
+    <p>{{ form.pwd.label }} {{ form.pwd }} {{ form.pwd.errors.0 }}</p>
+    <input type="submit" value="登陆">
+    <a href="/reg">注册</a>
+    {{ msg }}
+</form>
+</body>
+</html>

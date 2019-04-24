@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>单聊</title>
+</head>
+<body>
+<div>
+     当前登陆用户为:<span id="nick">{{ user }}</span>
+</div>
+
+<div style="display: none;" id="user">
+ {{ user_list }}
+</div>
+
+<div>
+    <p>用户列表:</p>
+    <ul id="user_list">
+    </ul>
+</div>
+<p>给客户端:<input type="text" id="to_user"></p>
+<p>发送消息:<input type="text" id="message"></p>
+<p>
+    <button onclick="send_msg()">发送</button>
+</p>
+<div id="message_list" style="margin-top: 20px;color: red;">
+</div>
+<script type="text/javascript" src="./static/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+    let ws = null;
+    let nick = document.getElementById("nick").innerText;
+    //console.log(nick)
+    ws = new WebSocket("ws://192.168.15.97:9002/ws/" + nick);
+    console.log(nick);
+    ////接受服务端数据时触发此事件
+    ws.onmessage = function (event) {
+        msg = event.data;
+        console.log(msg)
+        msg_obj = JSON.parse(msg);
+        let ptag = document.createElement("p");
+        ptag.innerText = msg_obj.from_user + ":" + msg_obj.msg;
+        let divtag = document.getElementById("message_list");
+        divtag.appendChild(ptag);
+    };
+    //用户列表
+    var user_list = document.getElementById("user").innerText;
+    console.log(user_list);
+    //将其序列化
+    var user_list = JSON.parse(user_list);
+    console.log(user_list, typeof (user_list));
+    for (let i = 0; i < user_list.length; i++) {
+        creat_user(user_list[i])
+    };
+
+    function creat_user(i) {
+        var litag = document.createElement("li");
+        litag.innerText = i;
+        var utag = document.getElementById("user_list");
+        utag.appendChild(litag);
+    };
+
+    //发送消息
+    function send_msg() {
+        let msg = document.getElementById("message").value;
+        let to_user = document.getElementById("to_user").value;
+        let nick = document.getElementById("nick").innerText;
+        let msg_obj = {
+            "to_user": to_user,
+            "from_user": nick,
+            "msg": msg
+        };
+        let msg_json = JSON.stringify(msg_obj);
+        ws.send(msg_json);
+    };
+
+</script>
+</body>
+</html>

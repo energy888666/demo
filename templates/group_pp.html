@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>群聊</title>
+</head>
+<body>
+<div>
+    <p>发送消息:<input type="text" id="message"></p>
+    <p><button onclick="send_msg()">发送</button></p>
+</div>
+
+<div id="message_list" style="margin-top: 20px;background-color: blue;">
+
+</div>
+
+<script type="text/javascript">
+
+    let ws=new WebSocket("ws://192.168.15.30:9002/ws");
+    //接受用户输入的消息发送给后台
+    function send_msg() {
+        let msg=document.getElementById("message").value;
+        ws.send(msg);
+    };
+    //接受服务端数据时触发事件
+    ws.onmessage=function (event) {
+
+        //console.log(event.data); 接受到的数据
+        let ptag=document.createElement("p");
+        ptag.innerText=event.data;
+        let divtag=document.getElementById("message_list");
+        divtag.appendChild(ptag)
+
+    };
+
+
+</script>
+
+</body>
+</html>
